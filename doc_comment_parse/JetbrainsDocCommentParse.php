@@ -10,9 +10,9 @@ use doc\model\ApiDocParam;
  * @package doc
  * @author blowsnow
  * @createdate 2020/9/8 17:25
- * @describe idea注解解析器
+ * @describe Jetbrains注解解析器
  */
-class IdeaDocCommentParse extends DocCommentParse
+class JetbrainsDocCommentParse extends DocCommentParse
 {
 
     private $alias = [

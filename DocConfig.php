@@ -3,7 +3,7 @@
 namespace doc;
 
 
-use doc\doc_comment_parse\IdeaDocCommentParse;
+use doc\doc_comment_parse\JetbrainsDocCommentParse;
 use doc\doc_class_parse\Tp5DocClassParse;
 
 /**
@@ -27,7 +27,7 @@ class DocConfig
 
     public $doc_class_parse = Tp5DocClassParse::class;
 
-    public $doc_comment_parse = IdeaDocCommentParse::class;
+    public $doc_comment_parse = JetbrainsDocCommentParse::class;
 
     public $cache = false;
 
