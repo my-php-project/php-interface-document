@@ -1,0 +1,305 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Swagger UI</title>
+    <link rel="icon" type="image/png" href="http://www.sosoapi.com/swagger/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="http://www.sosoapi.com/swagger/images/favicon-16x16.png" sizes="16x16" />
+    <link href='http://www.sosoapi.com/swagger/css/typography.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='http://www.sosoapi.com/swagger/css/reset.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='http://www.sosoapi.com/swagger/css/screen.css' media='screen' rel='stylesheet' type='text/css' />
+    <link href='http://www.sosoapi.com/swagger/css/reset.css' media='print' rel='stylesheet' type='text/css' />
+    <link href='http://www.sosoapi.com/swagger/css/print.css' media='print' rel='stylesheet' type='text/css' />
+
+    <style type="text/css">
+        #header .swagger-ui-wrap{
+            /* margin-left:20px;
+            margin-right:20px; */
+        }
+
+        #api_selector{
+            /* margin-right:200px; */
+        }
+
+        .ext-hidden {
+            display: none;
+        }
+
+        #condition {
+            width: 410px;
+        }
+
+        #apiName {
+
+        }
+
+        #apiKey {
+            width:170px;
+        }
+
+        #apiPosition {
+            font-size: 0.9em;
+            height: 1.8em;
+            width: 180px;
+        }
+
+        #btn-api-auth {
+            display: block;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 8px;
+            font-size: 0.9em;
+            color: white;
+            background-color: #547f00;
+            border-radius: 4px;
+        }
+
+        ul.api-auth{
+            display: none;
+            position: absolute;
+            top: 40px;
+            overflow: hidden;
+            background-color: #fff;
+            overflow-y: auto;
+            border: 1px solid #999;
+            border-top: 0;
+            box-shadow: 0 3px 5px #999;
+            z-index: 9999;
+            padding:10px 0;
+        }
+
+        ul.api-auth li {
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            padding: 0 10px;
+            cursor: pointer;
+            width:100%;
+        }
+
+        .input-select{
+            width: 200px;
+            height: 25px;
+            background: #fff url(../../swagger/images/input-select.jpg) no-repeat right center;
+        }
+
+        .input-select input {
+            background-color: #fff;
+            position:absolute;
+            border: 0;
+            outline: 0;
+            background: none;
+        }
+
+        .input-select ul {
+            width: 200px;
+            display: none;
+            position: absolute;
+            top: 40px;
+            overflow: hidden;
+            background-color: #fff;
+            overflow-y: auto;
+            /* border: 1px solid #999; */
+            border-top: 0;
+            box-shadow: 0 3px 5px #999;
+            z-index: 9999;
+        }
+
+        .input-select ul li {
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+            padding: 0 10px;
+            cursor: pointer;
+        }
+
+        .input-select ul li.on {
+            background-color: #e0e0e0;
+        }
+
+        #apiBtn {
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 8px;
+            font-size: 0.9em;
+            color: white;
+            background-color: #547f00;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -o-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -khtml-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .dev-status a{
+            text-transform: uppercase;
+            text-decoration: none !important;
+            color: white !important;
+            background-color: #e67e22;
+            display: inline-block;
+            width: 50px;
+            font-size: 0.7em;
+            text-align: center;
+            padding: 7px 4px 4px 4px;
+            border-radius: 2px;
+            text-decoration: none;
+        }
+    </style>
+
+    <script src='http://www.sosoapi.com/swagger/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/jquery.slideto.min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/jquery.wiggle.min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/handlebars-2.0.0.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/underscore-min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/backbone-min.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/swagger-ui-ext.js?version=1.1.8' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/highlight.7.3.pack.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/marked.js' type='text/javascript'></script>
+    <script src='http://www.sosoapi.com/swagger/lib/swagger-oauth.js' type='text/javascript'></script>
+
+</head>
+
+<body class="swagger-section">
+
+<input type="hidden" id="docUrl" value="http://www.sosoapi.com/pass/apidoc/demo/json/build.htm">
+
+<div id="header">
+    <div class="swagger-ui-wrap" style="max-width:1000px;">
+        <a id="logo" href="http://swagger.io">swagger</a>
+        <form id="api_selector">
+            <div class="input">
+                <input placeholder="http://example.com/api" id="input_baseUrl" name="baseUrl"
+                       type="hidden" value="http://www.sosoapi.com/pass/apidoc/demo/json/build.htm">
+            </div>
+
+            <div class="input">
+                <!-- <a id="explore" href="#" data-sw-translate>Explore</a> -->
+                <a id="btn-api-auth" href="javascript:void(0);">接口令牌设置</a>
+                <ul class="input api-auth ext-hidden" style="display: none;">
+                    <li>
+                        <input placeholder="接口令牌名称" id="apiName" name="apiName" type="text">
+                    </li>
+                    <li>
+                        <input placeholder="接口令牌值" id="apiKey" name="apiKey" type="text">
+                    </li>
+                    <li>
+                        <select id="apiPosition">
+                            <option value="header">令牌位置-header</option>
+                            <option value="query">令牌位置-query</option>
+                        </select>
+                    </li>
+                    <li>
+                        <a id="apiBtn" href="javascript:void(0);">确定</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="input input-select">
+                <input id="apiBaseUrl" type="text" placeholder="设置接口基路径">
+                <ul id="apiEnvSelect" style="display: none;">
+                    <li data-value="http://www.sosoapi.com/demo/swagger" class="">sosoapi</li>
+                    <li data-value="http://localhost:8080/sosoapi-web/demo/swagger" class="">local
+                    </li>
+                    <li data-value="http://www.sosoapi.com/pass/mock/1/">mock环境</li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="message-bar" class="swagger-ui-wrap message-success" data-sw-translate=""></div>
+<div id="swagger-ui-container" class="swagger-ui-wrap">
+    <div class="info" id="api_info">
+        <div class="info_title">sosoapi_demo</div>
+        <div class="info_description markdown"><p>该demo主要用于汇集常见的接口编辑事例。</p>
+            <p>接口测试过程中如果出现ajax跨域请求问题可参考\"常见问题-&gt;线下部署\"中的跨域请求相关资料。</p>
+            <p>技术交流群:1025037163</p></div>
+    </div>
+    <div class="container" id="resources_container">
+        <ul id="resources"><div>
+            <li id="resource_cust_ext_error_code" class="resource active">
+                <div class="heading">
+                    <h2>
+                        <a href="#!/cust_ext_error_code" class="toggleEndpointList" data-id="cust_ext_error_code">全局返回码</a>
+                    </h2>
+                    <ul class="options">
+                        <li>
+                            <a href="#!/cust_ext_error_code" id="endpointListTogger_cust_ext_error_code" class="toggleEndpointList" data-id="cust_ext_error_code" data-sw-translate="">显示/隐藏</a>
+                        </li>
+                        <li>
+                            <a href="#" class="collapseResource" data-id="cust_ext_error_code" data-sw-translate=""> 收缩 </a></li>
+                        <li>
+                            <a href="#" class="expandResource" data-id="cust_ext_error_code" data-sw-translate=""> 展开 </a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="endpoints" id="cust_ext_error_code_endpoint_list" style="display: none;">
+                    <li class="endpoint">
+                        <ul class="operations">
+                            <li class="post operation" id="cust_ext_error_code_get_1">
+                                <div class="content" id="cust_ext_error_code_get_1_content" style="display: block;border-top:1px solid #c3d9ec;">
+                                    <table class="fullwidth">
+                                        <thead>
+                                        <tr>
+                                            <th data-sw-translate="">返回码</th>
+                                            <th data-sw-translate="">返回信息</th>
+                                            <th data-sw-translate="">说明</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="operation-status">
+                                        <!-- <tr>
+                                            <td width="15%" class="code">200</td>
+                                            <td class="markdown"></td>
+                                            <td width="70%"></td>
+                                        </tr> -->
+                                        <tr><td width="15%" class="code">50001</td><td class="markdown"><p>用户已注册</p>
+                                        </td><td width="70%">注册时若用户已存在抛出该错误码</td></tr><tr><td width="15%" class="code">50002</td><td class="markdown"><p>用户名或密码错误</p>
+                                        </td><td width="70%"></td></tr><tr><td width="15%" class="code">50003</td><td class="markdown"></td><td width="70%"></td></tr></tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </div></ul>
+
+        <div class="footer">
+            <h4 style="color: #999">[ <span style="font-variant: small-caps" data-sw-translate="">API版本</span>: 1.0.1
+                ]
+            </h4>
+        </div>
+    </div>
+
+    <script>
+        $(function (){
+            $('.input-select').click(function(e){
+                $('.input-select').find('ul').hide();
+                $(this).find('ul').show();
+                e.stopPropagation();
+            });
+
+            $('.input-select li').hover(function(e){
+                $(this).toggleClass('on');
+                e.stopPropagation();
+            });
+
+            $('.input-select li').click(function(e){
+                var apiBaseUrlJqObj = $(this).parents('.input-select').find('input');
+                apiBaseUrlJqObj.val($(this).attr("data-value"));
+                $('.input-select ul').hide();
+
+                e.stopPropagation();
+            });
+
+            $(document).click(function(){
+                $('.input-select ul').hide();
+            });
+        })
+    </script>
+</div>
+
+
+</body>
+</html>
