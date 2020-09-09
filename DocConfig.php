@@ -23,7 +23,7 @@ class DocConfig
     public $description = '';
 
     // 接口目录，默认扫描所有目录
-    public $base_path = '';
+    public $base_path = [];
 
     public $doc_class_parse = Tp5DocClassParse::class;
 
@@ -32,4 +32,8 @@ class DocConfig
     public $cache = false;
 
     public $view = "swagger";
+
+    public function addBasePath($path){
+        $this->base_path[] = $path;
+    }
 }

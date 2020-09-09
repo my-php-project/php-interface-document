@@ -22,8 +22,8 @@ class DocBuilder
     public function __construct(DocConfig $docConfig)
     {
         $this->docConfig = $docConfig;
-        if ($this->docConfig->base_path == ''){
-            throw new \RuntimeException("未配置接口路径");
+        if ($this->docConfig->base_path == '' || !count($this->docConfig->base_path)){
+            throw new \RuntimeException("未配置扫描路径");
         }
     }
 
@@ -33,6 +33,7 @@ class DocBuilder
             $json = json_decode(file_get_contents(__DIR__ . "/api.json"),true);
         }else{
             $files = DocScanner::scan($this->docConfig->base_path);
+
             /** @var DocClassParse $docClassParse */
             $docClassParse = new $this->docConfig->doc_class_parse();
             /** @var DocCommentParse $docCommentParse */
