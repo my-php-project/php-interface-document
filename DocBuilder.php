@@ -48,6 +48,8 @@ class DocBuilder
                 $apiDocController = $docCommentParse->parse_controller($class->getDocComment());
                 $apiDocMethods = [];
                 foreach ($class->getMethods() as $method){
+                    // 忽略非公开的接口
+                    if (!$method->isPublic()) continue;
                     $url = $docClassParse->parse_url($class,$method);
                     $apiDocMethods[] = $docCommentParse->parse_method($method->getDocComment(),$url);
                 }
