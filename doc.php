@@ -12,10 +12,13 @@ spl_autoload_register('doc\\DocClassLoader::loadClass');
 $docConfig = new \doc\DocConfig();
 
 if (isset($_GET['act']) && $_GET['act'] == 'api'){
+    // 指定接口扫描目录
     $docConfig->base_path = __DIR__ . '/../../application/api/';
+
     $docBuilder = new \doc\DocBuilder($docConfig);
     $json = $docBuilder->build();
 
+    // 自定义json显示数据样式
     if (isset($_GET['json'])){
         $jsonName = $_GET['json'];
         $jsonClass = '\doc\doc_json\\' . $jsonName;
