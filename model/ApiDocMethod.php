@@ -5,12 +5,8 @@ namespace doc\model;
  * @createdate 2020/9/8 16:27
  * @describe
  */
-class ApiDocMethod
+class ApiDocMethod  extends ApiDocModel
 {
-    public $title;
-
-    public $desc;
-
     public $url;
 
     public $method = 'GET';

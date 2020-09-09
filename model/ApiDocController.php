@@ -8,12 +8,8 @@ namespace doc\model;
  * @createdate 2020/9/8 17:11
  * @describe
  */
-class ApiDocController
+class ApiDocController extends ApiDocModel
 {
-    public $title;
-
-    public $desc;
-
     /** @var array<ApiDocMethod> 接口列表 */
     public $methods;
 }

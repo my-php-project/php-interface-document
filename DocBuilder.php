@@ -4,6 +4,7 @@ use doc\doc_comment_parse\DocCommentParse;
 use doc\doc_class_parse\DocClassParse;
 use doc\model\ApiDocMethod;
 use doc\model\ApiDocController;
+use doc\model\ApiDocModel;
 
 /**
  * @author blowsnow
@@ -54,6 +55,19 @@ class DocBuilder
                 $apiDocControllers[] = $apiDocController;
             }
 
+
+
+            usort($apiDocControllers,[$this,'compare_weight']);
+            foreach ($apiDocControllers as &$apiDocController){
+                usort($apiDocController->methods,[$this,'compare_weight']);
+                /** @var ApiDocMethod $method */
+                foreach ($apiDocController->methods as &$method){
+                    usort($method->params,[$this,'compare_weight']);
+                }
+            }
+
+
+
             $json = [
                 "items" => $apiDocControllers,
                 "global_config" => $this->docConfig,
@@ -64,5 +78,15 @@ class DocBuilder
         }
 
         return $json;
+    }
+
+    private function compare_weight(ApiDocModel $a,ApiDocModel $b){
+        if($a->weight < $b->weight){
+            return -1;
+        }else if($a->weight > $b->weight){
+            return 1;
+        }else{
+            return 0;
+        }
     }
 }

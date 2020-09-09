@@ -36,6 +36,9 @@ class IdeaDocCommentParse extends DocCommentParse
         if (isset($comments['return'])){
             $apiDocController->return = $comments['return'];
         }
+        if (isset($comments['weight'])){
+            $apiDocController->weight = $comments['weight'];
+        }
 
         return $apiDocController;
     }
@@ -54,14 +57,18 @@ class IdeaDocCommentParse extends DocCommentParse
         // 解析请求方式
         if (isset($comments['method'])){
             $apiDocMethod->method = strtoupper($comments['method']);
-        }else{
-            $apiDocMethod->method = 'GET';
         }
         if (isset($comments['title'])){
             $apiDocMethod->title = strtolower($comments['title']);
         }
         if (isset($comments['desc'])){
             $apiDocMethod->desc = $comments['desc'];
+        }
+        if (isset($comments['return'])){
+            $apiDocMethod->return = $comments['return'];
+        }
+        if (isset($comments['weight'])){
+            $apiDocMethod->weight = $comments['weight'];
         }
         if (isset($comments['param'])){
             if (is_array($comments['param'])){
@@ -91,9 +98,7 @@ class IdeaDocCommentParse extends DocCommentParse
             array_push($apiDocMethod->querys,...$apiDocMethod->params);
             $apiDocMethod->params = [];
         }
-        if (isset($comments['return'])){
-            $apiDocMethod->return = $comments['return'];
-        }
+
 
         return $apiDocMethod;
     }
@@ -103,10 +108,10 @@ class IdeaDocCommentParse extends DocCommentParse
         $apiDocParam = new ApiDocParam();
 
         if (strpos($params[0],"$") !== false){
-            $apiDocParam->name = substr($params[0],1);
+            $apiDocParam->title = substr($params[0],1);
             $apiDocParam->type = $params[1];
         }else{
-            $apiDocParam->name = substr($params[1],1);
+            $apiDocParam->title = substr($params[1],1);
             $apiDocParam->type = $params[0];
         }
 
@@ -118,9 +123,9 @@ class IdeaDocCommentParse extends DocCommentParse
         $params = preg_split("/\s+/",$param_str);
         $apiDocParam = new ApiDocParam();
         if (strpos($params[0],"$") !== false){
-            $apiDocParam->name = substr($params[0],1);
+            $apiDocParam->title = substr($params[0],1);
         }else{
-            $apiDocParam->name = $params[0];
+            $apiDocParam->title = $params[0];
         }
 
         $apiDocParam->desc = implode(" ",array_slice($params,1));

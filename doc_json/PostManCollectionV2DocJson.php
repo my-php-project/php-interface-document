@@ -102,7 +102,7 @@ class PostManCollectionV2DocJson extends DocJson
 
     private function buildParam(ApiDocParam $param){
         return [
-            "key" => $param->name,
+            "key" => $param->title,
             "value" => '',
             "description" => $param->desc,
             "type" => 'text',
@@ -111,7 +111,7 @@ class PostManCollectionV2DocJson extends DocJson
 
     private function buildQuery(ApiDocParam $param){
         return [
-            "key" => $param->name,
+            "key" => $param->title,
             "value" => '',
             "description" => $param->desc
         ];

@@ -8,11 +8,9 @@ namespace doc\model;
  * @createdate 2020/9/8 16:28
  * @describe
  */
-class ApiDocParam
+class ApiDocParam  extends ApiDocModel
 {
-    public $name;
-
     public $type;
 
-    public $desc;
+    public $require = true;
 }
