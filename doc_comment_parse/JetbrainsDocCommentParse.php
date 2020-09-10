@@ -71,28 +71,22 @@ class JetbrainsDocCommentParse extends DocCommentParse
             $apiDocMethod->weight = $comments['weight'];
         }
         if (isset($comments['param'])){
-            if (is_array($comments['param'])){
-                $params = [];
-                foreach ($comments['param'] as $param){
-                    $params[] = $this->parse_params($param);
-                }
-                $apiDocMethod->params = $params;
-            }else{
-                $apiDocMethod->params = [$this->parse_params($comments['param'])];
+            $params = [];
+            foreach ($comments['param'] as $param){
+                $params[] = $this->parse_params($param);
             }
+            $apiDocMethod->params = $params;
         }
 
+
         if (isset($comments['query']) && $comments['query']){
-            if (is_array($comments['query'])){
-                $params = [];
-                foreach ($comments['query'] as $param){
-                    $params[] = $this->parse_querys($param);
-                }
-                $apiDocMethod->querys = $params;
-            }else{
-                $apiDocMethod->querys = [$this->parse_querys($comments['query'])];
+            $params = [];
+            foreach ($comments['query'] as $param){
+                $params[] = $this->parse_querys($param);
             }
+            $apiDocMethod->querys = $params;
         }
+
         //GET请求不会有参数的  只有访问参数，所以做个转换
         if ($apiDocMethod->method == 'GET' && count($apiDocMethod->params)){
             array_push($apiDocMethod->querys,...$apiDocMethod->params);
@@ -115,7 +109,7 @@ class JetbrainsDocCommentParse extends DocCommentParse
             $apiDocParam->type = $params[0];
         }
 
-        $apiDocParam->desc = implode(" ",array_slice($params,2));
+        $apiDocParam->desc = implode(PHP_EOL,array_slice($params,2));
         return $apiDocParam;
     }
 
@@ -128,7 +122,7 @@ class JetbrainsDocCommentParse extends DocCommentParse
             $apiDocParam->title = $params[0];
         }
 
-        $apiDocParam->desc = implode(" ",array_slice($params,1));
+        $apiDocParam->desc = implode(PHP_EOL,array_slice($params,1));
         return $apiDocParam;
     }
 

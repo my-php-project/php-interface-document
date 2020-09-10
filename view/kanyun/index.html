@@ -208,6 +208,9 @@
         .ui.text.grey {
             color: #767676;
         }
+        p.ui.text{
+            margin: 0;
+        }
 
         [v-cloak]{
             display: none;
@@ -215,6 +218,16 @@
 
         .caret{
             position: relative;
+        }
+
+        pre {
+            padding: 16px;
+            overflow: auto;
+            line-height: 1.45;
+            background-color: #f7f7f7;
+            border: 0;
+            border-radius: 3px;
+            font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
         }
     </style>
 </head>
@@ -252,7 +265,7 @@
             <h1>{{activeItem.title}}</h1>
         </div>
         <div class="workspace-body">
-            <p>{{activeItem.desc}}</p>
+            <pre v-if="activeItem.desc">{{activeItem.desc}}</pre>
 
             <div v-if="activeItem.url"  class="api-container">
                 <form class="ui form">
@@ -264,7 +277,7 @@
                         <table class="ui table fixed very basic">
                             <tbody>
                             <tr v-if="activeItem.querys && activeItem.querys.length > 0">
-                                <td colspan="4">请求 QUERY</td>
+                                <td colspan="4"><b># 请求 QUERY</b></td>
                             </tr>
                             <tr v-for="query in activeItem.querys">
                                 <td>
@@ -282,7 +295,7 @@
 <!--                                </td>-->
                             </tr>
                             <tr v-if="activeItem.params && activeItem.params.length > 0">
-                                <td colspan="4">请求BODY</td>
+                                <td colspan="4"><b># 请求BODY</b></td>
                             </tr>
                             <tr v-for="query in activeItem.params">
                                 <td>
@@ -293,6 +306,13 @@
                                     <p class="ui text red">param</p>
                                     <p class="ui text grey">{{query.desc}}</p>
                                 </td>
+                            </tr>
+
+                            <tr v-if="activeItem.return">
+                                <td colspan="4"><b># 返回</b></td>
+                            </tr>
+                            <tr v-if="activeItem.return">
+                                <td colspan="4">{{activeItem.return}}</td>
                             </tr>
                             </tbody>
                         </table>
