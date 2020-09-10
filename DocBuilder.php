@@ -41,8 +41,10 @@ class DocBuilder
 
             $apiDocControllers = [];
             foreach ($files as $file){
-
                 $class = $docClassParse->get_class($file);
+                // 忽略类
+                if (in_array($class,$this->docConfig->exclude_class)) continue;
+
                 $class = new \ReflectionClass($class);
 
                 $apiDocController = $docCommentParse->parse_controller($class->getDocComment());

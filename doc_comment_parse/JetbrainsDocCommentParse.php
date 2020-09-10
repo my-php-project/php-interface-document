@@ -39,7 +39,9 @@ class JetbrainsDocCommentParse extends DocCommentParse
         if (isset($comments['weight'])){
             $apiDocController->weight = $comments['weight'];
         }
-
+        if (!$apiDocController->title && $apiDocController->desc){
+            $apiDocController->title = $apiDocController->desc;
+        }
         return $apiDocController;
     }
 

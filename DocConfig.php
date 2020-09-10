@@ -39,6 +39,10 @@ class DocConfig
 
     ];
 
+    // 忽略类
+    public $exclude_class = [
+    ];
+
     public function addBasePath($path){
         $this->base_path[] = $path;
     }
