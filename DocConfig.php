@@ -33,6 +33,12 @@ class DocConfig
 
     public $view = "kanyun";
 
+    // 忽略的方法列表，支持正则表达式
+    public $exclude_method = [
+        '__*',
+
+    ];
+
     public function addBasePath($path){
         $this->base_path[] = $path;
     }

@@ -13,6 +13,7 @@ class Tp5DocClassParse extends DocClassParse
 
     public function get_class($path)
     {
+        include_once $path;
         $path = str_replace("/","\\",$path);
         $path = str_replace("\\\\","\\",$path);
         $path = str_replace(".php","",$path);

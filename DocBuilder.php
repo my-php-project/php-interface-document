@@ -41,7 +41,7 @@ class DocBuilder
 
             $apiDocControllers = [];
             foreach ($files as $file){
-                include_once $file;
+
                 $class = $docClassParse->get_class($file);
                 $class = new \ReflectionClass($class);
 
@@ -50,6 +50,9 @@ class DocBuilder
                 foreach ($class->getMethods() as $method){
                     // 忽略非公开的接口
                     if (!$method->isPublic()) continue;
+                    // 忽略指定的方法名称
+                    if ($this->check_exclude_method($method->getShortName())) continue;
+
                     $url = $docClassParse->parse_url($class,$method);
                     $apiDocMethods[] = $docCommentParse->parse_method($method->getDocComment(),$url);
                 }
@@ -91,5 +94,14 @@ class DocBuilder
         }else{
             return 0;
         }
+    }
+
+    private function check_exclude_method($method){
+        foreach ($this->docConfig->exclude_method as $methodPattern){
+            if (preg_match("/" . $methodPattern . "/",$method)){
+                return true;
+            }
+        }
+        return false;
     }
 }
