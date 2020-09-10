@@ -29,6 +29,9 @@ function method(){}
 ## title 接口名称
 > 自动识别第一行 / @title注解
 
+## desc 描述
+> 自动识别第二行 / @desc / @describe
+
 ## param 参数 支持多个参数
 > - @param 参数类型 变量名称 变量描述
 > - @param 变量名称 参数类型 变量描述
