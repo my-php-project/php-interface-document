@@ -41,3 +41,6 @@ function method(){}
 
 ## weight 排序  默认100 从小到大
 > @weight 100
+
+# 截图
+![wGQ7As.png](https://s1.ax1x.com/2020/09/10/wGQ7As.png)
