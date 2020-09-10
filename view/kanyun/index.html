@@ -136,7 +136,9 @@
             color: #a8a7a7;
             display: inline-block;
         }
-
+        .sidebar .sidebar-body{
+            overflow: auto;
+        }
         .sidebar .sidebar-body ul {
             margin: 0;
             padding: 0;
@@ -149,13 +151,15 @@
             padding-right: 10px;
         }
 
+
         .sidebar .sidebar-body ul li {
             line-height: 30px;
-            margin-left: 24px;
+            padding-left: 24px;
             cursor: pointer;
             white-space: nowrap;
             /*width: 100%;*/
             overflow: hidden;
+            position: relative;
         }
 
         .sidebar .sidebar-body ul li .text {
@@ -255,6 +259,18 @@
             margin: 0 -10px;
             position: fixed;
             z-index: 20;
+        }
+
+        ::-webkit-scrollbar {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            cursor: pointer;
+            border-radius: 5px;
+            background: rgba(0,0,0,.25);
+            transition: color .2s ease;
         }
     </style>
 </head>
