@@ -121,9 +121,11 @@
             text-align: center;
             margin-right: 5px;
         }
+
         .api-container .api-header .api-type.api-type-get {
             background-color: rgb(107, 189, 91);
         }
+
         .api-container .api-header .api-type.api-type-post {
             background-color: rgb(36, 143, 178);
         }
@@ -134,16 +136,19 @@
             color: #a8a7a7;
             display: inline-block;
         }
-        .sidebar .sidebar-body ul{
+
+        .sidebar .sidebar-body ul {
             margin: 0;
             padding: 0;
-            color: rgba(0,0,0,.87);
+            color: rgba(0, 0, 0, .87);
         }
-        .sidebar .sidebar-body>ul{
+
+        .sidebar .sidebar-body > ul {
             margin: 0;
             padding: 12px 0;
             padding-right: 10px;
         }
+
         .sidebar .sidebar-body ul li {
             line-height: 30px;
             margin-left: 24px;
@@ -152,6 +157,7 @@
             /*width: 100%;*/
             overflow: hidden;
         }
+
         .sidebar .sidebar-body ul li .text {
             display: inline-block;
             line-height: 30px;
@@ -161,6 +167,7 @@
             vertical-align: middle;
             position: relative;
         }
+
         .sidebar .sidebar-body ul li .wholerow {
             width: 100%;
             position: absolute;
@@ -171,9 +178,11 @@
             user-select: none;
             height: 30px;
         }
-        .sidebar .sidebar-body ul li.active>.wholerow{
+
+        .sidebar .sidebar-body ul li.active > .wholerow {
             background: #e5e5e5;
         }
+
         /*.sidebar .sidebar-body ul li i {*/
         /*    position: relative;*/
         /*    width: 24px;*/
@@ -183,40 +192,47 @@
         /*    text-decoration: none;*/
         /*    vertical-align: middle;*/
         /*}*/
-        .sidebar .sidebar-body > ul li ul{
+        .sidebar .sidebar-body > ul li ul {
             display: none;
         }
-        .sidebar .sidebar-body > ul li.open ul{
+
+        .sidebar .sidebar-body > ul li.open ul {
             display: block;
         }
-        a,a:hover,a:active,a:focus{
-            text-decoration: none;
-        }
-        a:hover{
+
+        a, a:hover, a:active, a:focus {
             text-decoration: none;
         }
 
-        .ui.table td{
+        a:hover {
+            text-decoration: none;
+        }
+
+        .ui.table td {
             width: 50%;
         }
+
         .ui.text.grey.light {
             color: #a9a9a9;
         }
+
         .ui.text.red {
             color: #db2828;
         }
+
         .ui.text.grey {
             color: #767676;
         }
-        p.ui.text{
+
+        p.ui.text {
             margin: 0;
         }
 
-        [v-cloak]{
+        [v-cloak] {
             display: none;
         }
 
-        .caret{
+        .caret {
             position: relative;
         }
 
@@ -227,7 +243,18 @@
             background-color: #f7f7f7;
             border: 0;
             border-radius: 3px;
-            font-family: Consolas,Monaco,Andale Mono,Ubuntu Mono,monospace;
+            font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+        }
+
+
+        .workspace .workspace-head .tools.right {
+            right: 20px;
+        }
+        .workspace .workspace-head .tools {
+            background: #fff;
+            margin: 0 -10px;
+            position: fixed;
+            z-index: 20;
         }
     </style>
 </head>
@@ -241,7 +268,8 @@
             <ul>
                 <li v-for="item in json.items" class="" @click="onClickFirstLi($event,item)">
                     <div class="wholerow"></div>
-                    <i class="icon caret down" :style="item.methods.length === 0 ? 'opacity: 0;': ''"></i>
+                    <i class="icon caret down"
+                       :style="item.methods.length === 0 ? 'opacity: 0;': ''"></i>
                     <a href="#" class="text">{{item.title}}</a>
                     <ul>
                         <li v-for="method in item.methods" @click="onClickLi($event,method)">
@@ -263,11 +291,29 @@
             <div class="left tools"><a class="item icon"><i class="icon align justify"></i></a>
             </div>
             <h1>{{activeItem.title}}</h1>
+
+
+            <div class="right tools">
+                <div role="listbox" aria-expanded="true"
+                     class="ui active visible top right pointing dropdown item" tabindex="0">
+                    <div class="text" role="alert" aria-live="polite"></div>
+                    <div id="fat-menu" class="dropdown open">
+                        <a id="drop3" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            导出
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="drop3" style="right: 0; left: unset;">
+                            <li><a href="?act=api&json=PostManCollectionV2DocJson" target="_blank">PostManCollectionV2</a></li>
+                            <li><a href="?act=api&json=SwaggerDocJson" target="_blank">swagger2</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
         </div>
         <div class="workspace-body">
             <pre v-if="activeItem.desc">{{activeItem.desc}}</pre>
 
-            <div v-if="activeItem.url"  class="api-container">
+            <div v-if="activeItem.url" class="api-container">
                 <form class="ui form">
                     <div class="api-header">
                         <span :class="'api-type api-type-' + activeItem.method">{{activeItem.method}}</span>
@@ -281,18 +327,18 @@
                             </tr>
                             <tr v-for="query in activeItem.querys">
                                 <td>
-                                    <strong>{{query.title}}</strong>
+                                    <strong>{{query.title||''}}</strong>
                                     <p class="ui text light grey">{{query.type}}</p>
                                 </td>
                                 <td>
                                     <p class="ui text red">query</p>
                                     <p class="ui text grey">{{query.desc}}</p>
                                 </td>
-<!--                                <td class="right aligned">-->
-<!--                                    <div class="ui input fluid">-->
-<!--                                        <input name="Api_UserName" placeholder="英文或数字社区帐号" type="text">-->
-<!--                                    </div>-->
-<!--                                </td>-->
+                                <!--                                <td class="right aligned">-->
+                                <!--                                    <div class="ui input fluid">-->
+                                <!--                                        <input name="Api_UserName" placeholder="英文或数字社区帐号" type="text">-->
+                                <!--                                    </div>-->
+                                <!--                                </td>-->
                             </tr>
                             <tr v-if="activeItem.params && activeItem.params.length > 0">
                                 <td colspan="4"><b># 请求BODY</b></td>
@@ -312,7 +358,9 @@
                                 <td colspan="4"><b># 返回</b></td>
                             </tr>
                             <tr v-if="activeItem.return">
-                                <td colspan="4">{{activeItem.return}}</td>
+                                <td colspan="4">
+                                    <pre>{{activeItem.return}}</pre>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -323,37 +371,44 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
 
 </script>
 <script>
+    $(function (){
+        $("[data-toggle='popover']").popover();
+    });
+
     var app = new Vue({
         el: "#main",
-        data:{
-            json: {},
+        data: {
+            json: {
+                global_config: {}
+            },
             activeItem: {}
         },
-        mounted(){
+        mounted() {
             this.loadJson();
         },
-        methods:{
-            loadJson(){
-                $.get("?act=api",(data)=>{
+        methods: {
+            loadJson() {
+                $.get("?act=api", (data) => {
                     this.json = data;
 
                     //默认激活第一个
-                    setTimeout(function (){
+                    setTimeout(function () {
                         $(".sidebar .sidebar-body>ul li").eq(0).trigger("click");
-                    },100);
-                },"JSON");
+                    }, 100);
+                }, "JSON");
             },
 
-            onClickFirstLi(event,item){
+            onClickFirstLi(event, item) {
                 $(event.target).parent("li").toggleClass("open");
-                this.onClickLi(event,item);
+                this.onClickLi(event, item);
             },
-            onClickLi(event,item){
+            onClickLi(event, item) {
                 $(".sidebar .sidebar-body ul li").removeClass("active");
                 $(event.target).parent("li").addClass("active");
 
