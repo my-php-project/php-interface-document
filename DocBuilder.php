@@ -5,6 +5,7 @@ use doc\doc_class_parse\DocClassParse;
 use doc\model\ApiDocMethod;
 use doc\model\ApiDocController;
 use doc\model\ApiDocModel;
+use doc\model\ApiDocParam;
 
 /**
  * @author blowsnow
@@ -48,6 +49,9 @@ class DocBuilder
                 $class = new \ReflectionClass($class);
 
                 $apiDocController = $docCommentParse->parse_controller($class->getDocComment());
+
+                if ($apiDocController->ignore) continue;
+
                 $apiDocMethods = [];
                 foreach ($class->getMethods() as $method){
                     // 忽略非公开的接口
@@ -56,7 +60,10 @@ class DocBuilder
                     if ($this->check_exclude_method($method->getShortName())) continue;
 
                     $url = $docClassParse->parse_url($class,$method);
-                    $apiDocMethods[] = $docCommentParse->parse_method($method->getDocComment(),$url);
+                    $apiDocMethod = $docCommentParse->parse_method($method->getDocComment(),$url);
+                    if (!$apiDocMethod->title) continue;
+                    if ($apiDocMethod->ignore) continue;
+                    $apiDocMethods[] = $apiDocMethod;
                 }
 
                 $apiDocController->methods = $apiDocMethods;
@@ -73,7 +80,6 @@ class DocBuilder
                     usort($method->params,[$this,'compare_weight']);
                 }
             }
-
 
 
             $json = [

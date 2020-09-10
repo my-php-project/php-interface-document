@@ -39,6 +39,9 @@ class JetbrainsDocCommentParse extends DocCommentParse
         if (isset($comments['weight'])){
             $apiDocController->weight = $comments['weight'];
         }
+        if (isset($comments['ignore'])){
+            $apiDocController->ignore = true;
+        }
         if (!$apiDocController->title && $apiDocController->desc){
             $apiDocController->title = $apiDocController->desc;
         }
@@ -71,6 +74,9 @@ class JetbrainsDocCommentParse extends DocCommentParse
         }
         if (isset($comments['weight'])){
             $apiDocMethod->weight = $comments['weight'];
+        }
+        if (isset($comments['ignore'])){
+            $apiDocMethod->ignore = true;
         }
         if (isset($comments['param'])){
             $params = [];

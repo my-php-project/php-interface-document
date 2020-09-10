@@ -16,4 +16,6 @@ class ApiDocModel
 
     // 排序
     public $weight = 100;
+
+    public $ignore = false;
 }
