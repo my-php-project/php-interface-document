@@ -1,0 +1,352 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>API文档</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
+          data-react-helmet="true">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css"
+          rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            border-right: 1px solid #ddd;
+            background-color: #fafafa;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            transition: left .25s ease;
+        }
+
+        .sidebar .sidebar-header .title {
+            padding: 0 12px;
+            border-bottom: 1px solid #ddd;
+            line-height: 55px;
+            color: inherit;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .sidebar .sidebar-body {
+            flex: 1;
+        }
+
+        .sidebar .sidebar-copyright {
+            flex: none;
+            background: #fafafa;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            padding: 5px 0;
+            text-align: center;
+            line-height: 24px;
+            position: absolute \9;
+            bottom: 0 \9;
+            left: 0 \9;
+            right: 0 \9;
+        }
+
+        .workspace {
+            margin-left: 280px;
+        }
+
+        .workspace .workspace-head h1 {
+            flex: 1;
+            margin: 0;
+            font-size: 20px;
+            font-weight: 200;
+            text-align: center;
+            line-height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #7e888b;
+        }
+
+        .workspace .workspace-body {
+            padding: 9px 24px;
+            max-width: 980px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        .ui.table {
+            font-size: 1em;
+        }
+
+        input {
+            line-height: 1.28571429em;
+            padding: .64285714em 1em;
+            font-size: 1em;
+            background: #fff;
+            border: 1px solid rgba(34, 36, 38, .15);
+            color: rgba(0, 0, 0, .87);
+            border-radius: .28571429rem;
+            box-shadow: inset 0 0 0 0 transparent;
+            transition: color .1s ease, border-color .1s ease;
+        }
+
+        input:focus {
+            border-color: #85b7d9;
+            outline: none;
+        }
+
+        .api-container .api-header {
+            padding: 10px 0;
+            display: flex;
+        }
+
+        .api-container .api-header .api-type {
+            width: 60px;
+            display: inline-block;
+            background-color: #333;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 11px;
+            height: 24px;
+            line-height: 24px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-right: 5px;
+        }
+        .api-container .api-header .api-type.api-type-get {
+            background-color: rgb(107, 189, 91);
+        }
+        .api-container .api-header .api-type.api-type-post {
+            background-color: rgb(36, 143, 178);
+        }
+
+        .api-container .api-header .api-url {
+            font-weight: 500;
+            font-size: 1.2em;
+            color: #a8a7a7;
+            display: inline-block;
+        }
+        .sidebar .sidebar-body ul{
+            margin: 0;
+            padding: 0;
+            color: rgba(0,0,0,.87);
+        }
+        .sidebar .sidebar-body>ul{
+            margin: 0;
+            padding: 12px 0;
+            padding-right: 10px;
+        }
+        .sidebar .sidebar-body ul li {
+            line-height: 30px;
+            margin-left: 24px;
+            cursor: pointer;
+            white-space: nowrap;
+            /*width: 100%;*/
+            overflow: hidden;
+        }
+        .sidebar .sidebar-body ul li .text {
+            display: inline-block;
+            line-height: 30px;
+            word-break: keep-all;
+            white-space: nowrap;
+            color: #666;
+            vertical-align: middle;
+            position: relative;
+        }
+        .sidebar .sidebar-body ul li .wholerow {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            height: 30px;
+        }
+        .sidebar .sidebar-body ul li.active>.wholerow{
+            background: #e5e5e5;
+        }
+        /*.sidebar .sidebar-body ul li i {*/
+        /*    position: relative;*/
+        /*    width: 24px;*/
+        /*    height: 24px;*/
+        /*    line-height: 24px;*/
+        /*    display: inline-block;*/
+        /*    text-decoration: none;*/
+        /*    vertical-align: middle;*/
+        /*}*/
+        .sidebar .sidebar-body > ul li ul{
+            display: none;
+        }
+        .sidebar .sidebar-body > ul li.open ul{
+            display: block;
+        }
+        a,a:hover,a:active,a:focus{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+
+        .ui.table td{
+            width: 50%;
+        }
+        .ui.text.grey.light {
+            color: #a9a9a9;
+        }
+        .ui.text.red {
+            color: #db2828;
+        }
+        .ui.text.grey {
+            color: #767676;
+        }
+
+        [v-cloak]{
+            display: none;
+        }
+
+        .caret{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="main" v-cloak>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="title">{{json.global_config.title}}</a>
+        </div>
+        <div class="sidebar-body">
+            <ul>
+                <li v-for="item in json.items" class="" @click="onClickFirstLi($event,item)">
+                    <div class="wholerow"></div>
+                    <i class="icon caret down"></i>
+                    <a href="#" class="text">{{item.title}}</a>
+                    <ul>
+                        <li v-for="method in item.methods" @click="onClickLi($event,method)">
+                            <div class="wholerow"></div>
+                            <i class="icon"></i>
+                            <a href="#" class="text">{{method.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-copyright">
+            <div>{{json.global_config.title}} - v{{json.global_config.version}}</div>
+            <div>最后更新：{{json.create_time}}</div>
+        </div>
+    </div>
+    <div class="workspace">
+        <div class="workspace-head">
+            <div class="left tools"><a class="item icon"><i class="icon align justify"></i></a>
+            </div>
+            <h1>{{activeItem.title}}</h1>
+        </div>
+        <div class="workspace-body">
+            <p>{{activeItem.desc}}</p>
+
+            <div v-if="activeItem.url"  class="api-container">
+                <form class="ui form">
+                    <div class="api-header">
+                        <span :class="'api-type api-type-' + activeItem.method">{{activeItem.method}}</span>
+                        <span class="api-url">{{activeItem.url}}</span>
+                    </div>
+                    <div class="api-body">
+                        <table class="ui table fixed very basic">
+                            <tbody>
+                            <tr v-if="activeItem.querys && activeItem.querys.length > 0">
+                                <td colspan="4">请求 QUERY</td>
+                            </tr>
+                            <tr v-for="query in activeItem.querys">
+                                <td>
+                                    <strong>{{query.title}}</strong>
+                                    <p class="ui text light grey">{{query.type}}</p>
+                                </td>
+                                <td>
+                                    <p class="ui text red">query</p>
+                                    <p class="ui text grey">{{query.desc}}</p>
+                                </td>
+<!--                                <td class="right aligned">-->
+<!--                                    <div class="ui input fluid">-->
+<!--                                        <input name="Api_UserName" placeholder="英文或数字社区帐号" type="text">-->
+<!--                                    </div>-->
+<!--                                </td>-->
+                            </tr>
+                            <tr v-if="activeItem.params && activeItem.params.length > 0">
+                                <td colspan="4">请求BODY</td>
+                            </tr>
+                            <tr v-for="query in activeItem.params">
+                                <td>
+                                    <strong>{{query.title}}</strong>
+                                    <p class="ui text light grey">{{query.type}}</p>
+                                </td>
+                                <td>
+                                    <p class="ui text red">param</p>
+                                    <p class="ui text grey">{{query.desc}}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+
+</script>
+<script>
+    var app = new Vue({
+        el: "#main",
+        data:{
+            json: {},
+            activeItem: {}
+        },
+        mounted(){
+            this.loadJson();
+        },
+        methods:{
+            loadJson(){
+                $.get("?act=api",(data)=>{
+                    this.json = data;
+
+                    //默认激活第一个
+                    setTimeout(function (){
+                        $(".sidebar .sidebar-body>ul li").eq(0).trigger("click");
+                    },100);
+                },"JSON");
+            },
+
+            onClickFirstLi(event,item){
+                console.log('onClickFirstLi',event);
+                $(event.target).parent("li").toggleClass("open");
+                this.onClickLi(event,item);
+            },
+            onClickLi(event,item){
+                $(".sidebar .sidebar-body ul li").removeClass("active");
+                $(event.target).parent("li").addClass("active");
+                console.log('onClickLi',event);
+
+                event.cancelBubble = true
+                event.stopPropagation();
+
+                this.activeItem = item;
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

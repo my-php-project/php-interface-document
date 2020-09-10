@@ -22,7 +22,7 @@ class DocBuilder
     public function __construct(DocConfig $docConfig)
     {
         $this->docConfig = $docConfig;
-        if ($this->docConfig->base_path == '' || !count($this->docConfig->base_path)){
+        if ($this->docConfig->base_path == '' || (is_array($this->docConfig->base_path) && !count($this->docConfig->base_path))){
             throw new \RuntimeException("未配置扫描路径");
         }
     }

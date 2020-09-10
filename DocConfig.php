@@ -31,7 +31,7 @@ class DocConfig
 
     public $cache = false;
 
-    public $view = "swagger";
+    public $view = "kanyun";
 
     public function addBasePath($path){
         $this->base_path[] = $path;
