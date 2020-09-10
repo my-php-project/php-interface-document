@@ -46,4 +46,12 @@ class DocConfig
     public function addBasePath($path){
         $this->base_path[] = $path;
     }
+
+    public function addExcludeMethod($path){
+        $this->exclude_method[] = $path;
+    }
+
+    public function addExcludeClass($path){
+        $this->exclude_class[] = $path;
+    }
 }
