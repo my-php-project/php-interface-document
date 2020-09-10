@@ -241,7 +241,7 @@
             <ul>
                 <li v-for="item in json.items" class="" @click="onClickFirstLi($event,item)">
                     <div class="wholerow"></div>
-                    <i class="icon caret down"></i>
+                    <i class="icon caret down" :style="item.methods.length === 0 ? 'opacity: 0;': ''"></i>
                     <a href="#" class="text">{{item.title}}</a>
                     <ul>
                         <li v-for="method in item.methods" @click="onClickLi($event,method)">
@@ -350,14 +350,12 @@
             },
 
             onClickFirstLi(event,item){
-                console.log('onClickFirstLi',event);
                 $(event.target).parent("li").toggleClass("open");
                 this.onClickLi(event,item);
             },
             onClickLi(event,item){
                 $(".sidebar .sidebar-body ul li").removeClass("active");
                 $(event.target).parent("li").addClass("active");
-                console.log('onClickLi',event);
 
                 event.cancelBubble = true
                 event.stopPropagation();
